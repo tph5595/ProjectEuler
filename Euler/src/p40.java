@@ -1,3 +1,4 @@
+//Done
 public class p40 {
 	public static void main(String[] args) {
 		double time = System.currentTimeMillis();
