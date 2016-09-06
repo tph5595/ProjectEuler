@@ -7,10 +7,6 @@ public class p47 {
 		ArrayList<Integer> primes = genPrimes(5000);
 		ArrayList<ArrayList<Integer>> factors = new ArrayList<ArrayList<Integer>>();
 		ArrayList<Integer> temp;
-		// factors.add(new ArrayList<Integer>());
-		// factors.add(new ArrayList<Integer>());
-		// factors.add(new ArrayList<Integer>());
-		// factors.add(new ArrayList<Integer>());
 		int ndx = 0;
 		for (int i = 3;; i++) {
 			if (ndx == 3) {
@@ -18,12 +14,13 @@ public class p47 {
 				return;
 			}
 			temp = getFactors(primes, i);
-			
+
 			if (temp.size() == 3) {
-				factors.add(temp);	
+				factors.add(temp);
 				if (ndx > 0) {
 					for (int j = 0; j < ndx; j++) {
 						for (int k : factors.get(j)) {
+							System.out.println("f: " + factors.size());
 							if (factors.get(factors.size() - 1).indexOf(k) != -1) {
 								for (int n = 0; n <= j; n++) {
 									factors.remove(n);
@@ -32,13 +29,11 @@ public class p47 {
 							}
 						}
 					}
-				} else {
-
 				}
 				ndx++;
-				
+
 			}
-			System.out.println(i + "\t" + ndx+"\t"+temp.size());
+			System.out.println(i + "\t" + ndx + "\t" + temp.size());
 		}
 	}
 
@@ -51,15 +46,15 @@ public class p47 {
 		while (num > 1) {
 			for (int i = 0; primes.get(i) <= num; i++) {
 				if (num % primes.get(i) == 0) {
-					//System.out.println(num % primes.get(i));
+					// System.out.println(num % primes.get(i));
 					num /= primes.get(i);
 					fac.add(primes.get(i));
-					//System.out.println("boop "+primes.get(i)+"\t"+num);
+					// System.out.println("boop "+primes.get(i)+"\t"+num);
 				}
-				if(num == 1)
+				if (num == 1)
 					break;
 			}
-			//System.out.println("loop "+num);
+			// System.out.println("loop "+num);
 		}
 		System.out.println(fac.size());
 		// compress
@@ -67,8 +62,8 @@ public class p47 {
 		Collections.sort(fac);
 		int cur = fac.get(0);
 		for (int i = 1; i < fac.size(); i++) {
-			if (fac.get(i) != fac.get(i-1)) {
-				System.out.println("here");
+			if (fac.get(i) != fac.get(i - 1)) {
+				// System.out.println("here");
 				com.add(cur);
 			} else {
 				cur *= fac.get(i);
