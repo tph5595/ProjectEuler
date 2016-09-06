@@ -13,13 +13,13 @@ public class p47 {
 		// factors.add(new ArrayList<Integer>());
 		int ndx = 0;
 		for (int i = 3;; i++) {
-			if (ndx == 2) {
+			if (ndx == 3) {
 				System.out.println(i - 2);
 				return;
 			}
 			temp = getFactors(primes, i);
 			
-			if (temp.size() == 2) {
+			if (temp.size() == 3) {
 				factors.add(temp);	
 				if (ndx > 0) {
 					for (int j = 0; j < ndx; j++) {
@@ -49,16 +49,17 @@ public class p47 {
 			return fac;
 		}
 		while (num > 1) {
-			for (int i = 0; primes.get(i) < num; i++) {
+			for (int i = 0; primes.get(i) <= num; i++) {
 				if (num % primes.get(i) == 0) {
-					
+					//System.out.println(num % primes.get(i));
 					num /= primes.get(i);
 					fac.add(primes.get(i));
-					System.out.println("boop "+primes.get(i)+"\t"+num);
+					//System.out.println("boop "+primes.get(i)+"\t"+num);
 				}
 				if(num == 1)
 					break;
 			}
+			//System.out.println("loop "+num);
 		}
 		System.out.println(fac.size());
 		// compress
