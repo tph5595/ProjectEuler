@@ -6,33 +6,39 @@ public class p47 {
 	public static void main(String[] args) {
 		ArrayList<Integer> primes = genPrimes(5000);
 		ArrayList<ArrayList<Integer>> factors = new ArrayList<ArrayList<Integer>>();
-		//factors.add(new ArrayList<Integer>());
-		//factors.add(new ArrayList<Integer>());
-		//factors.add(new ArrayList<Integer>());
-		//factors.add(new ArrayList<Integer>());
+		ArrayList<Integer> temp;
+		// factors.add(new ArrayList<Integer>());
+		// factors.add(new ArrayList<Integer>());
+		// factors.add(new ArrayList<Integer>());
+		// factors.add(new ArrayList<Integer>());
 		int ndx = 0;
 		for (int i = 3;; i++) {
-			if (ndx == 3) {
+			if (ndx == 2) {
 				System.out.println(i - 2);
 				return;
 			}
-			factors.add(getFactors(primes, i));
-			if (ndx > 0) {
-				for (int j = 0; j < ndx; j++) {
-					for (int k : factors.get(j)) {
-						if (factors.get(factors.size()-1).indexOf(k) != -1) {
-							for (int n = 0; n <= j; n++) {
-								factors.remove(n);
-								ndx--;
+			temp = getFactors(primes, i);
+			
+			if (temp.size() == 2) {
+				factors.add(temp);	
+				if (ndx > 0) {
+					for (int j = 0; j < ndx; j++) {
+						for (int k : factors.get(j)) {
+							if (factors.get(factors.size() - 1).indexOf(k) != -1) {
+								for (int n = 0; n <= j; n++) {
+									factors.remove(n);
+									ndx--;
+								}
 							}
 						}
 					}
-				}
-			} else {
+				} else {
 
+				}
+				ndx++;
+				
 			}
-			ndx++;
-			System.out.println(i + "\t" + ndx);
+			System.out.println(i + "\t" + ndx+"\t"+temp.size());
 		}
 	}
 
@@ -44,24 +50,31 @@ public class p47 {
 		}
 		while (num > 1) {
 			for (int i = 0; primes.get(i) < num; i++) {
-				if(num% primes.get(i) == 0){
-					num%=primes.get(i);
+				if (num % primes.get(i) == 0) {
+					
+					num /= primes.get(i);
 					fac.add(primes.get(i));
+					System.out.println("boop "+primes.get(i)+"\t"+num);
 				}
+				if(num == 1)
+					break;
 			}
 		}
+		System.out.println(fac.size());
 		// compress
 		ArrayList<Integer> com = new ArrayList<Integer>();
 		Collections.sort(fac);
 		int cur = fac.get(0);
 		for (int i = 1; i < fac.size(); i++) {
-			if (fac.get(i) != fac.get(i) - 1) {
+			if (fac.get(i) != fac.get(i-1)) {
+				System.out.println("here");
 				com.add(cur);
 			} else {
 				cur *= fac.get(i);
 			}
-		} fac.add(cur);
-		return fac;
+		}
+		com.add(cur);
+		return com;
 	}
 
 	public static ArrayList<Integer> genPrimes(int numPrimes) {
