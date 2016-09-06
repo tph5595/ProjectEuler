@@ -1,0 +1,85 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class p47 {
+
+	public static void main(String[] args) {
+		ArrayList<Integer> primes = genPrimes(5000);
+		ArrayList<ArrayList<Integer>> factors = new ArrayList<ArrayList<Integer>>();
+		//factors.add(new ArrayList<Integer>());
+		//factors.add(new ArrayList<Integer>());
+		//factors.add(new ArrayList<Integer>());
+		//factors.add(new ArrayList<Integer>());
+		int ndx = 0;
+		for (int i = 3;; i++) {
+			if (ndx == 3) {
+				System.out.println(i - 2);
+				return;
+			}
+			factors.add(getFactors(primes, i));
+			if (ndx > 0) {
+				for (int j = 0; j < ndx; j++) {
+					for (int k : factors.get(j)) {
+						if (factors.get(factors.size()-1).indexOf(k) != -1) {
+							for (int n = 0; n <= j; n++) {
+								factors.remove(n);
+								ndx--;
+							}
+						}
+					}
+				}
+			} else {
+
+			}
+			ndx++;
+			System.out.println(i + "\t" + ndx);
+		}
+	}
+
+	public static ArrayList<Integer> getFactors(ArrayList<Integer> primes, int num) {
+		ArrayList<Integer> fac = new ArrayList<Integer>();
+		if (primes.indexOf(num) != -1) {
+			fac.add(num);
+			return fac;
+		}
+		while (num > 1) {
+			for (int i = 0; primes.get(i) < num; i++) {
+				if(num% primes.get(i) == 0){
+					num%=primes.get(i);
+					fac.add(primes.get(i));
+				}
+			}
+		}
+		// compress
+		ArrayList<Integer> com = new ArrayList<Integer>();
+		Collections.sort(fac);
+		int cur = fac.get(0);
+		for (int i = 1; i < fac.size(); i++) {
+			if (fac.get(i) != fac.get(i) - 1) {
+				com.add(cur);
+			} else {
+				cur *= fac.get(i);
+			}
+		} fac.add(cur);
+		return fac;
+	}
+
+	public static ArrayList<Integer> genPrimes(int numPrimes) {
+		ArrayList<Integer> primes = new ArrayList<Integer>();
+		primes.add(2);
+		boolean found = false;
+		for (int i = 3; primes.size() < numPrimes; i += 2) {
+			found = false;
+			for (int j = 0; j < primes.size(); j++) {
+				if (i % primes.get(j) == 0) {
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				primes.add(i);
+			}
+		}
+		return primes;
+	}
+}
