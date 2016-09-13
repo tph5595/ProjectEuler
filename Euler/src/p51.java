@@ -7,14 +7,17 @@ public class p51 {
 		ArrayList<String> patterns = new ArrayList<String>();
 		ArrayList<Integer> patNum = new ArrayList<Integer>();
 		primes.add(2);
-		int maxPat = 0, ndx = 0, curVal, boop;
+		int maxPat = 0, ndx = 0, curVal = 0, boop;
 		ArrayList<String> strs = null;
 		while (maxPat < 8) {
+			// System.out.println("wot.");
 			boop = nextPrime(primes);
-			primes.add(boop);System.out.println("Testing: " + boop);
-			if (primes.get(ndx) > 56003) {
-			//	System.out.println("Testing: " + boop);
+			primes.add(boop);
+			
+			if (primes.get(ndx) > 56000) {
+				// System.out.println("Testing real: " + boop);
 				strs = parse(primes.get(ndx));
+				// System.out.println("parsed");
 				if (strs != null) {
 					for (int i = 0; i < strs.size(); i++) {
 						if (patterns.indexOf(strs.get(i)) == -1) {
@@ -29,7 +32,9 @@ public class p51 {
 					}
 				}
 			}
+			// System.out.println("boopy");
 			ndx++;
+			System.out.println("Testing: " + boop + "\t" + maxPat + "\t" + curVal);
 		}
 
 	}
@@ -49,7 +54,7 @@ public class p51 {
 			for (int j = i + 1; j < size; j++) {
 				if (val[i] == val[j]) {
 					str = "";
-					for (int k = 0; i < size; k++) {
+					for (int k = 0; k < size; k++) {
 						if (k == i || k == j)
 							str += '*';
 						else
@@ -75,7 +80,7 @@ public class p51 {
 	public static int nextPrime(ArrayList<Integer> primes) {
 		boolean found;
 		int maxPrime = primes.get(primes.size() - 1);
-		for (int i = maxPrime + 1;; i += 2) {
+		for (int i = maxPrime + 1;; i++) {
 			found = false;
 			for (int j = 0; j < primes.size(); j++) {
 				if (i % primes.get(j) == 0) {
