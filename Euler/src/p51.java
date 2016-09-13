@@ -7,11 +7,13 @@ public class p51 {
 		ArrayList<String> patterns = new ArrayList<String>();
 		ArrayList<Integer> patNum = new ArrayList<Integer>();
 		primes.add(2);
-		int maxPat = 0, ndx = 0, curVal;
+		int maxPat = 0, ndx = 0, curVal, boop;
 		ArrayList<String> strs = null;
 		while (maxPat < 8) {
-			primes.add(nextPrime(primes));
+			boop = nextPrime(primes);
+			primes.add(boop);System.out.println("Testing: " + boop);
 			if (primes.get(ndx) > 56003) {
+			//	System.out.println("Testing: " + boop);
 				strs = parse(primes.get(ndx));
 				if (strs != null) {
 					for (int i = 0; i < strs.size(); i++) {
@@ -33,14 +35,34 @@ public class p51 {
 	}
 
 	private static ArrayList<String> parse(int num) {
+		ArrayList<String> patterns = new ArrayList<String>();
 		// split num into array
 		int size = size(num);
+		String str;
 		int[] val = new int[size];
 		for (int i = 0; i < size; i++) {
 			val[size - 1 - i] = num % 10;
 			num /= 10;
 		}
-
+		// find all pairs
+		for (int i = 0; i < size; i++) {
+			for (int j = i + 1; j < size; j++) {
+				if (val[i] == val[j]) {
+					str = "";
+					for (int k = 0; i < size; k++) {
+						if (k == i || k == j)
+							str += '*';
+						else
+							str += val[k];
+					}
+					if (patterns.indexOf(str) == -1) {
+						patterns.add(str);
+					}
+				}
+			}
+		}
+		if (patterns.size() > 0)
+			return patterns;
 		return null;
 	}
 
