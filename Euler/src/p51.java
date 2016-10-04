@@ -3,17 +3,18 @@ import java.util.ArrayList;
 public class p51 {
 
 	public static void main(String[] args) {
+		int goal = 8;
 		ArrayList<Integer> primes = new ArrayList<Integer>();
 		ArrayList<String> patterns = new ArrayList<String>();
 		ArrayList<Integer> patNum = new ArrayList<Integer>();
 		primes.add(2);
 		int maxPat = 0, ndx = 0, curVal = 0, boop;
 		ArrayList<String> strs = null;
-		while (maxPat < 8) {
+		while (maxPat < goal) {
 			// System.out.println("wot.");
 			boop = nextPrime(primes);
 			primes.add(boop);
-			
+
 			if (primes.get(ndx) > 56000) {
 				// System.out.println("Testing real: " + boop);
 				strs = parse(primes.get(ndx));
@@ -33,8 +34,10 @@ public class p51 {
 				}
 			}
 			// System.out.println("boopy");
-			ndx++;
-			System.out.println("Testing: " + boop + "\t" + maxPat + "\t" + curVal);
+			if (maxPat != goal) {
+				ndx++;
+				System.out.println("Testing: " + boop + "\t" + maxPat + "\t" + curVal);
+			}
 		}
 
 	}
